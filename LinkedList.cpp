@@ -92,7 +92,7 @@ LinkedList<T>:: ~LinkedList() {
 template <class T>
 void LinkedList<T>::push(T n) {
     
-    node<T> *ptr = new node(n);
+    node<T> *ptr = new node<T>(n);
     
     if (head == NULL)
         head = ptr;
@@ -149,11 +149,12 @@ template <class T>
 void LinkedList<T>::print_List() {
 	
 	
-    node<T> *ptr = l.getHead();
+    node<T> *ptr = head;
     while (ptr != NULL) {
         cout << ptr->val << " ";
         ptr = ptr -> next; 
     }
+    cout << endl;
 }
 
 template <class T>
@@ -165,7 +166,7 @@ node<T>* link(node<T>* frontNodes, node<T> * backNode) {
 }
 
 template <class T>
-node<T>* LinkedList::reverse(node<T> * c) {
+node<T>* LinkedList<T>::reverse(node<T> * c) {
 	
 	if (c->next == NULL) {
 		head = c;
@@ -183,6 +184,8 @@ int main()
     // with values integer values 0 - 9
     for (int i = 0; i < 10; i ++)
         l.push(i);
-   
+    l.print_List();
+    l.reverse(l.getHead());
+    l.print_List();
     return 0;
 }
