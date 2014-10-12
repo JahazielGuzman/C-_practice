@@ -17,9 +17,9 @@ template <class T>
 class node {
     public:
         T val;
-        node *next;
+        node<T> *next;
     
-        node (T x, node *ptr = NULL) {
+        node (T x, node<T> *ptr = NULL) {
             val = x;
             next = ptr;
         }
@@ -36,7 +36,7 @@ template <class T>
 class LinkedList {
     
     private:
-        node * head;
+        node<T> * head;
         
     public:
     
@@ -62,7 +62,7 @@ class LinkedList {
         void push(T);
         void pop(T);
         void print_List();
-        node* reverse(node*);
+        node* reverse(node<T>*);
         
         
 };
@@ -71,10 +71,11 @@ class LinkedList {
    this destructor remove every node
    in the list one by one
 ***********************************/
+template <class T>
 LinkedList:: ~LinkedList() {
             
-    node *ptr = head;
-    node *To_Del = NULL;
+    node<T> *ptr = head;
+    node<T> *To_Del = NULL;
     while (ptr != NULL) {
                 
         To_Del = ptr;
@@ -91,13 +92,13 @@ LinkedList:: ~LinkedList() {
 template <class T>
 void LinkedList::push(T n) {
     
-    node *ptr = new node(n);
+    node<T> *ptr = new node(n);
     
     if (head == NULL)
         head = ptr;
     else {
         
-        node *prev = head;
+        node<T> *prev = head;
         
         // go to the last node
         while (prev->next != NULL) {
@@ -120,8 +121,8 @@ template <class T>
 void LinkedList::pop (T n) {
     
     if (!empty()) {
-        node *To_Pop = NULL;
-        node *prev = NULL;
+        node<T> *To_Pop = NULL;
+        node<T> *prev = NULL;
         
         // while we are still within the list and
         // we havent found the node to delete
@@ -144,24 +145,27 @@ void LinkedList::pop (T n) {
 }
 
 // print the values of each node in the list
+template <class T>
 void LinkedList::print_List() {
 	
 	
-    node *ptr = l.getHead();
+    node<T> *ptr = l.getHead();
     while (ptr != NULL) {
         cout << ptr->val << " ";
         ptr = ptr -> next; 
     }
 }
 
-node* link(node* frontNodes, node * backNode) {
+template <class T>
+node<T>* link(node* frontNodes, node * backNode) {
 	
 	frontNodes->next = backNode;
 	backNode->next = NULL;
 	return backNode;
 }
 
-node* LinkedList::reverse(node * c) {
+template <class T>
+node<T>* LinkedList::reverse(node * c) {
 	
 	if (c->next == NULL) {
 		head = c;
@@ -173,7 +177,7 @@ node* LinkedList::reverse(node * c) {
 
 int main()
 {
-    LinkedList l;
+    LinkedList<int> l;
    
     // create a linked list
     // with values integer values 0 - 9
