@@ -88,6 +88,7 @@ LinkedList:: ~LinkedList() {
 // argument and creates a node with this
 // value and inserts it in the back
 // of the list
+template <class T>
 void LinkedList::push(T n) {
     
     node *ptr = new node(n);
@@ -115,6 +116,7 @@ void LinkedList::push(T n) {
   otherwise if it was never found do
   nothing
 ********************************/
+template <class T>
 void LinkedList::pop (T n) {
     
     if (!empty()) {
