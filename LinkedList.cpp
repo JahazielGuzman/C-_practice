@@ -58,11 +58,11 @@ class LinkedList {
                 return 0;
         };
         
-        node* getHead () {return head;}
+        node<T>* getHead () {return head;}
         void push(T);
         void pop(T);
         void print_List();
-        node* reverse(node<T>*);
+        node<T>* reverse(node<T>*);
         
         
 };
