@@ -72,7 +72,7 @@ class LinkedList {
    in the list one by one
 ***********************************/
 template <class T>
-LinkedList:: ~LinkedList() {
+LinkedList<T>:: ~LinkedList() {
             
     node<T> *ptr = head;
     node<T> *To_Del = NULL;
@@ -90,7 +90,7 @@ LinkedList:: ~LinkedList() {
 // value and inserts it in the back
 // of the list
 template <class T>
-void LinkedList::push(T n) {
+void LinkedList<T>::push(T n) {
     
     node<T> *ptr = new node(n);
     
@@ -118,7 +118,7 @@ void LinkedList::push(T n) {
   nothing
 ********************************/
 template <class T>
-void LinkedList::pop (T n) {
+void LinkedList<T>::pop (T n) {
     
     if (!empty()) {
         node<T> *To_Pop = NULL;
@@ -146,7 +146,7 @@ void LinkedList::pop (T n) {
 
 // print the values of each node in the list
 template <class T>
-void LinkedList::print_List() {
+void LinkedList<T>::print_List() {
 	
 	
     node<T> *ptr = l.getHead();
@@ -157,7 +157,7 @@ void LinkedList::print_List() {
 }
 
 template <class T>
-node<T>* link(node* frontNodes, node * backNode) {
+node<T>* link(node<T>* frontNodes, node<T> * backNode) {
 	
 	frontNodes->next = backNode;
 	backNode->next = NULL;
@@ -165,7 +165,7 @@ node<T>* link(node* frontNodes, node * backNode) {
 }
 
 template <class T>
-node<T>* LinkedList::reverse(node * c) {
+node<T>* LinkedList::reverse(node<T> * c) {
 	
 	if (c->next == NULL) {
 		head = c;
