@@ -136,6 +136,23 @@ void LinkedList::pop (int n) {
     
 }
 
+node* link(node* frontNodes, node * backNode) {
+	
+	frontNodes->next = backNode;
+	backNode->next = NULL;
+	return backNode;
+}
+
+node* LinkedList::reverse(node * c) {
+	
+	if (c->next == NULL) {
+		head = c;
+		return c;
+	}
+	
+	return link(reverse(c->next),c);
+}
+
 int main()
 {
     LinkedList l; 
