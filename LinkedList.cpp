@@ -3,21 +3,23 @@
    all necessary classes are defined in this file 
    for convenience
 ***************************************************/
-
 #include <iostream>
 using namespace std;
 
 /**********************************
    This class defines a node.
-   Each node has an integer value and a 
+   Each node has a values of a template
+   type thats supports
+   comparison operators and a 
    pointer to the next node
 ***********************************/
+template <class T>
 class node {
     public:
-        int val;
+        T val;
         node *next;
     
-        node (int x, node *ptr = NULL) {
+        node (T x, node *ptr = NULL) {
             val = x;
             next = ptr;
         }
@@ -27,9 +29,10 @@ class node {
    This class defines a LinkedList which
    contains int_nodes. It contains a head 
    pointer to the first node in a chain of 
-   nodes with integer values.
+   nodes with template values.
 ******************************************/
 
+template <class T>
 class LinkedList {
     
     private:
@@ -56,8 +59,10 @@ class LinkedList {
         };
         
         node* getHead () {return head;}
-        void push(int);
-        void pop(int);
+        void push(T);
+        void pop(T);
+        void print_List();
+        node* reverse(node*);
         
         
 };
@@ -79,11 +84,11 @@ LinkedList:: ~LinkedList() {
     }
 }
 
-// this method push() takes an integer
+// this method push() takes a template type
 // argument and creates a node with this
 // value and inserts it in the back
 // of the list
-void LinkedList::push(int n) {
+void LinkedList::push(T n) {
     
     node *ptr = new node(n);
     
@@ -106,11 +111,11 @@ void LinkedList::push(int n) {
 
 /******************************** 
   remove a node with a particular
-  integer value. If it exists remove,
+  template value. If it exists remove,
   otherwise if it was never found do
   nothing
 ********************************/
-void LinkedList::pop (int n) {
+void LinkedList::pop (T n) {
     
     if (!empty()) {
         node *To_Pop = NULL;
@@ -136,6 +141,17 @@ void LinkedList::pop (int n) {
     
 }
 
+// print the values of each node in the list
+void LinkedList::print_List() {
+	
+	
+    node *ptr = l.getHead();
+    while (ptr != NULL) {
+        cout << ptr->val << " ";
+        ptr = ptr -> next; 
+    }
+}
+
 node* link(node* frontNodes, node * backNode) {
 	
 	frontNodes->next = backNode;
@@ -155,20 +171,12 @@ node* LinkedList::reverse(node * c) {
 
 int main()
 {
-    LinkedList l; 
+    LinkedList l;
    
     // create a linked list
-    // with values 0 - 9
+    // with values integer values 0 - 9
     for (int i = 0; i < 10; i ++)
         l.push(i);
-   
-    // print the value of each node
-    node *ptr = l.getHead();
-    while (ptr != NULL) {
-        cout << ptr->val << " ";
-        ptr = ptr -> next; 
-    }  
-
    
     return 0;
 }
