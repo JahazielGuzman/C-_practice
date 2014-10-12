@@ -1,6 +1,6 @@
 /**************************************************
    this is the implementation of a singly linked list 
-   all necessary classes are defined in this file 
+   all necessary classes and functions are defined in this file 
    for convenience
 ***************************************************/
 #include <iostream>
