@@ -20,8 +20,8 @@ class node {
         node<T> *next;
     
         node (T x, node<T> *ptr = NULL) {
-            val = x;
-            next = ptr;
+             val = x;
+             next = ptr;
         }
 };
 
@@ -42,7 +42,7 @@ class LinkedList {
     
         LinkedList() {
         // initialize an empty linked list
-            head = NULL;
+             head = NULL;
         }
         
         // destructor
@@ -52,17 +52,18 @@ class LinkedList {
         // check if the list has any
         // nodes
         bool empty() { 
-            if (head == NULL) 
-                return 1;
-            else
-                return 0;
+             if (head == NULL) 
+                 return 1;
+             else
+                 return 0;
         };
         
         node<T>* getHead () {return head;}
         void push(T);
         void pop(T);
         void print_List();
-        node<T>* reverse(node<T>*);
+        void reverse();
+        void recursive_reverse(node<T> *);
         
         
 };
@@ -74,15 +75,15 @@ class LinkedList {
 template <class T>
 LinkedList<T>:: ~LinkedList() {
             
-    node<T> *ptr = head;
-    node<T> *To_Del = NULL;
-    while (ptr != NULL) {
+     node<T> *ptr = head;
+     node<T> *To_Del = NULL;
+     while (ptr != NULL) {
                 
-        To_Del = ptr;
-        ptr = ptr -> next;
+          To_Del = ptr;
+          ptr = ptr -> next;
             
-        delete To_Del;
-    }
+          delete To_Del;
+     }
 }
 
 // this method push() takes a template type
@@ -120,30 +121,30 @@ void LinkedList<T>::push(T n) {
 template <class T>
 void LinkedList<T>::pop (T v) {
     
-    if (head == NULL)
-    	return;
+     if (head == NULL)
+          return;
     
-    node<T> *curr;
+     node<T> *curr;
     
-    if (head->value == v) {
-     	curr = head;
-        head = head->next;
-        delete curr
+     if (head->value == v) {
+          curr = head;
+          head = head->next;
+          delete curr;
      }
      
      else {
-	node<T> *prev = head;
-        curr = head->next;
+	     node<T> *prev = head;
+         curr = head->next;
         
-        while (curr != NULL && curr->val != v) {
-              prev = curr;
-              curr = curr->next;
-        }
+          while (curr != NULL && curr->val != v) {
+               prev = curr;
+               curr = curr->next;
+          }
         
-        if (curr != NULL) {
-	   prev->next = curr->next;
-           delete curr
-        }
+          if (curr != NULL) {
+	           prev->next = curr->next;
+               delete curr;
+          }
         
      }
      
@@ -153,44 +154,87 @@ void LinkedList<T>::pop (T v) {
 template <class T>
 void LinkedList<T>::print_List() {
 	
-	
-    node<T> *ptr = head;
-    while (ptr != NULL) {
-        cout << ptr->val << " ";
-        ptr = ptr -> next; 
-    }
-    cout << endl;
+     node<T> *ptr = head;
+     while (ptr != NULL) {
+          cout << ptr->val << " ";
+          ptr = ptr -> next; 
+     }
+     cout << endl;
 }
 
 template <class T>
 node<T>* link(node<T>* frontNodes, node<T> * backNode) {
-	
-	frontNodes->next = backNode;
-	backNode->next = NULL;
-	return backNode;
+     	
+  	 frontNodes->next = backNode;
+	 backNode->next = NULL;
+	 return backNode;
 }
 
+/***************************************************** 
+this function reverses a singly linked list iteratively
+by using three pointers, prev, curr and next. at each node
+curr, curr point to the previous node, and we will maintain
+access to the list with the successor node
+*****************************************************/
 template <class T>
-node<T>* LinkedList<T>::reverse(node<T> * c) {
-	
-	if (c->next == NULL) {
-		head = c;
-		return c;
-	}
-	
-	return link(reverse(c->next),c);
+void LinkedList<T>::reverse() {
+   
+     if (head == NULL)
+   	     return;
+
+     node<T> *prev = NULL, 
+             *curr = head, 
+             *succ = head->next;
+     
+     // reverse the direction of the links
+     while (succ->next != NULL) {
+          curr->next = prev;
+          prev = curr;
+          curr = succ;
+          succ = succ->next;
+    }
+    // special case where head will point to
+    // the last node
+          curr->next = prev;
+          succ->next = curr;
+          head = succ;
+}
+
+// reverse the links in a linked list recursively
+// the last node will be the first, the first node
+// will be last etc...
+template <class T>
+void LinkedList<T>::recursive_reverse(node<T> * p) {
+
+     // base case, where we must set head to the
+     // last node
+     if (p->next == NULL) {
+          head = p;
+          return;
+     }
+     
+     recursive_reverse(p->next);
+     
+     // have each successive node point
+     // to its predecessor, thus reversing the links
+     node<T> *q = p->next;
+     q->next = p;
+     p->next = NULL;
 }
 
 int main()
 {
-    LinkedList<int> l;
+     LinkedList<int> l;
    
     // create a linked list
     // with values integer values 0 - 9
-    for (int i = 0; i < 10; i ++)
-        l.push(i);
-    l.print_List();
-    l.reverse(l.getHead());
-    l.print_List();
-    return 0;
+     for (int i = 0; i < 10; i ++)
+         l.push(i);
+     // print the list in order, then reverse, then back again
+     l.print_List();
+     l.reverse();
+     l.print_List();
+     l.recursive_reverse(l.getHead());
+     l.print_List();
+     return 0;
 }
