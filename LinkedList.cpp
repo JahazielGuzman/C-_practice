@@ -118,30 +118,35 @@ void LinkedList<T>::push(T n) {
   nothing
 ********************************/
 template <class T>
-void LinkedList<T>::pop (T n) {
+void LinkedList<T>::pop (T v) {
     
-    if (!empty()) {
-        node<T> *To_Pop = NULL;
-        node<T> *prev = NULL;
+    if (head == NULL)
+    	return;
+    
+    node<T> *curr;
+    
+    if (head->value == v) {
+     	curr = head;
+        head = head->next;
+        delete curr
+     }
+     
+     else {
+	node<T> *prev = head;
+        curr = head->next;
         
-        // while we are still within the list and
-        // we havent found the node to delete
-        
-        while (To_Pop->val != n && To_Pop != NULL) {
-            
-            prev = To_Pop;
-            To_Pop = To_Pop->next;
+        while (curr != NULL && curr->val != v) {
+              prev = curr;
+              curr = curr->next;
         }
         
-        // if we found the node
-        if (To_Pop != NULL) {
-            
-            prev->next = To_Pop->next;
-            delete To_Pop;
+        if (curr != NULL) {
+	   prev->next = curr->next;
+           delete curr
         }
         
-    }
-    
+     }
+     
 }
 
 // print the values of each node in the list
